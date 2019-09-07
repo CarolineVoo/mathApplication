@@ -163,7 +163,7 @@ public class PlayActivity extends AppCompatActivity {
     //Button som sletter tallene fra svar TextView
     public void buttonClear(View v){
         gamePlay = true;
-        textAnswer = "";
+        textAnswer = "0";
         TextView answer = (TextView)findViewById(R.id.answer);
         answer.setText(textAnswer);
 
