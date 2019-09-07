@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorOrange">#e3a944</color>
+    <color name="colorDarkOrange">#a87720</color>
+    <color name="colorIconOrange">#d19b3d</color>
+    <color name="colorNumberBrown">#542e00</color>
+    <color name="colorCalculation">#694400</color>
+    <color name="colorConfirm">#0fde00</color>
+    <color name="colorClear">#c9001b</color>
+</resources>

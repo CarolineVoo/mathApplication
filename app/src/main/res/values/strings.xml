@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">mathApplication</string>
+    <string name="menu_play">Spill</string>
+    <string name="menu_statistic">Statistikk</string>
+    <string name="menu_preferences">Preferanser</string>
+</resources>
