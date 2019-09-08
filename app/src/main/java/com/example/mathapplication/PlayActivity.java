@@ -83,14 +83,25 @@ public class PlayActivity extends AppCompatActivity {
      * Button functions
      **************************************/
 
-    // Funksjon som setter inn nummer-verdi i TextView
+    // Funksjon som setter inn nummer-verdi i TextView og validerer med tall 0 først
     public void setNumber(int tall){
         if(gamePlay){
             String num = String.valueOf(tall);
             textAnswer = textAnswer + num;
             TextView answer = (TextView)findViewById(R.id.answer);
-            answer.setText(textAnswer);
-            Log.d("VALGT TALL", textAnswer);
+
+            String firstNum = textAnswer.substring(0,1);
+            int zeroFirst = Integer.valueOf(firstNum);
+
+            if(zeroFirst == 0){
+                textAnswer = num;
+                answer.setText(textAnswer);
+                Log.d("VALGT TALL1", textAnswer);
+                Log.d("DANGER", "null FØRST!");
+            }else{
+                answer.setText(textAnswer);
+                Log.d("VALGT TALL2", textAnswer);
+            }
         }
     }
 
@@ -103,8 +114,7 @@ public class PlayActivity extends AppCompatActivity {
             gamePlay = false;
         }
     }
-
-
+    
 
 
     /**************************************
