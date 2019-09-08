@@ -1,5 +1,7 @@
 package com.example.mathapplication;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,19 +11,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.util.Arrays;
 import java.util.Random;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PlayActivity extends AppCompatActivity {
     TextView setText;           //TextView til tekstfeltet der man svarer, uten verdi
+    TextView setPoints;      //TextView til tekstfeltet der poengen vises
     String textAnswer = "";     //String til tekstfeltet der man svarer, med tom string verdi
     boolean gamePlay = true;    //Boolean til hele spillet, der den starter med true og kjører
     String[] arrayCalculation;  //Array til å sette inn ulike regenstykker
     String[] arrayAnswer;       //Array til å sette inn svarene til regnestykkene.
     Integer currentAnswer;      //Integer som gir svaret til regnestykke fra tilfeldig svar fra arrayAnswer
     Integer myAnswer;           //Integer som spillerern svarer
+    Integer playerPoints;
 
     Random randomIndex = new Random();      //Variabel som gir tilfeldig tall
     int n = randomIndex.nextInt(25);    //Gir begrenset tall som skal være random.
@@ -35,6 +43,10 @@ public class PlayActivity extends AppCompatActivity {
         //Setter opp variabler for tekstfelt som gir effekt dersom den endrer seg
         setText = (TextView)findViewById(R.id.answer);
         setText.addTextChangedListener(answerTextWatcher);
+
+        //Setter opp poeng 0 dersom aktiviteten starter
+        setPoints = (TextView)findViewById(R.id.textPlayerPoints);
+        playerPoints = 0;
 
         initialise();
 
@@ -114,7 +126,7 @@ public class PlayActivity extends AppCompatActivity {
             gamePlay = false;
         }
     }
-    
+
 
 
     /**************************************
@@ -181,7 +193,6 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 
-
     //Button som bekrefter ditt svar
     public void buttonAnswer(View v){
         arrayAnswer = getResources().getStringArray(R.array.correctAnswer);
@@ -189,6 +200,7 @@ public class PlayActivity extends AppCompatActivity {
         myAnswer = Integer.valueOf(textAnswer);
 
         if(currentAnswer == myAnswer){
+            correctAnswer();
             Log.d("FASIT", "Riktig!");
             Toast.makeText(this, "RIKTIG SVAR", Toast.LENGTH_SHORT).show();
         }else{
@@ -198,6 +210,13 @@ public class PlayActivity extends AppCompatActivity {
 
         Log.d("DITT SVAR", String.valueOf(myAnswer));
         Log.d("FASIT SVAR", String.valueOf(currentAnswer));
+    }
+
+    public void correctAnswer(){
+        playerPoints = playerPoints + 1;
+        String points = String.valueOf(playerPoints);
+        setPoints.setText(points);
+        Log.d("Poeng", points);
     }
 
 

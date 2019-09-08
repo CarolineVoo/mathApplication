@@ -1,6 +1,11 @@
 <resources>
+    <!-- MENU ACTIVITY -->
     <string name="app_name">mathApplication</string>
     <string name="menu_play">Spiel</string>
     <string name="menu_statistic">Statistik</string>
     <string name="menu_preferences">Präferenz</string>
+
+    <!-- START GAME ACTIVITY -->
+    <string name="start_taskOf">von</string>
+    <string name="start_points">Punkt:</string>
 </resources>

@@ -1,6 +1,11 @@
 <resources>
+    <!-- MENU ACTIVITY -->
     <string name="app_name">mathApplication</string>
     <string name="menu_play">Spill</string>
     <string name="menu_statistic">Statistikk</string>
     <string name="menu_preferences">Preferanser</string>
+
+    <!-- START GAME ACTIVITY -->
+    <string name="start_taskOf">av</string>
+    <string name="start_points">Poeng:</string>
 </resources>

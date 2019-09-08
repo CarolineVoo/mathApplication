@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
 
+    <!--   BACKGROUNDS   -->
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -14,11 +15,49 @@
         android:src="@drawable/background_start"
         />
 
+
+    <!-- TEXT FROM THE BOARD  -->
+    <TextView
+        android:id="@+id/textThisTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/textTask"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="4dp"
+        android:textColor="@color/colorDarkOrange"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="0" />
+    <TextView
+        android:id="@+id/textTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorDarkOrange"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="@string/start_taskOf" />
+
+    <TextView
+        android:id="@+id/textNumberOfTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textTask"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="4dp"
+        android:textColor="@color/colorDarkOrange"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="5" />
+
     <TextView
         android:id="@+id/textCalculation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_below="@id/textTask"
         android:layout_marginLeft="90dp"
         android:textStyle="bold"
         android:textColor="@color/colorNumberBrown"
@@ -30,7 +69,8 @@
         android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
+        android:layout_below="@id/textTask"
+        android:layout_marginTop="-9dp"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/textCalculation"
         android:textStyle="bold"
@@ -39,6 +79,35 @@
         android:text="0"
         />
 
+    <TextView
+        android:id="@+id/textPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCalculation"
+        android:layout_marginTop="3dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorNumberBrown"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        android:text="@string/start_points" />
+
+    <TextView
+        android:id="@+id/textPlayerPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCalculation"
+        android:layout_toRightOf="@id/textPoints"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="2dp"
+        android:textColor="@color/colorNumberBrown"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:text="0" />
+
+
+
+
+    <!-- BUTTONS  -->
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
