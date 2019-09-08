@@ -22,23 +22,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PlayActivity extends AppCompatActivity {
     TextView setText;           //TextView til tekstfeltet der man svarer, uten verdi
-    TextView setPoints;      //TextView til tekstfeltet der poengen vises
-    String textAnswer = "";     //String til tekstfeltet der man svarer, med tom string verdi
+    TextView setPoints;         //TextView til tekstfeltet der poengen vises
+    TextView setTask;           //TextView til tekstfeltet som viser hvilken oppgave
+    String textAnswer;          //String til tekstfeltet der man svarer, med tom string verdi
     boolean gamePlay = true;    //Boolean til hele spillet, der den starter med true og kjører
     String[] arrayCalculation;  //Array til å sette inn ulike regenstykker
     String[] arrayAnswer;       //Array til å sette inn svarene til regnestykkene.
+    Random randomIndex;         //Variabel som gir tilfeldig tall
+    Integer n;                  //Gir begrenset tall som skal være random.
     Integer currentAnswer;      //Integer som gir svaret til regnestykke fra tilfeldig svar fra arrayAnswer
     Integer myAnswer;           //Integer som spillerern svarer
-    Integer playerPoints;
+    Integer playerPoints;       //Integer som viser spillerens poeng
+    Integer thisTask;           //Integer som viser hvilken oppgave spilleren er på
 
-    Random randomIndex = new Random();      //Variabel som gir tilfeldig tall
-    int n = randomIndex.nextInt(25);    //Gir begrenset tall som skal være random.
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        setTask = (TextView)findViewById(R.id.textThisTask);
+        thisTask = 1;
 
         //Setter opp variabler for tekstfelt som gir effekt dersom den endrer seg
         setText = (TextView)findViewById(R.id.answer);
@@ -48,7 +53,11 @@ public class PlayActivity extends AppCompatActivity {
         setPoints = (TextView)findViewById(R.id.textPlayerPoints);
         playerPoints = 0;
 
-        initialise();
+        textAnswer = ""; //Starter med at tekstfeltet er tom
+
+        randomIndex = new Random();  //Setter tilfeldige tall nå aktiviteten starter
+
+        randomCalc(); //Kjører funksjonen der det inneholder tilfeldige tall;
 
     }
 
@@ -58,9 +67,10 @@ public class PlayActivity extends AppCompatActivity {
      **************************************/
 
     //Start på aktiviteten dersom siden starter, RANDOM regnestykke kommer.
-    public void initialise(){
+    public void randomCalc(){
         arrayCalculation = getResources().getStringArray(R.array.calculation);
         TextView calcQuestion = (TextView)findViewById(R.id.textCalculation);
+        n = randomIndex.nextInt(25);
         calcQuestion.setText(arrayCalculation[n]);
     }
 
@@ -127,6 +137,13 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    public void resetTextCalc(){
+        gamePlay = true;
+        textAnswer = "";
+        TextView answer = (TextView)findViewById(R.id.answer);
+        answer.setText(textAnswer);
+    }
+
 
 
     /**************************************
@@ -184,11 +201,7 @@ public class PlayActivity extends AppCompatActivity {
 
     //Button som sletter tallene fra svar TextView
     public void buttonClear(View v){
-        gamePlay = true;
-        textAnswer = "";
-        TextView answer = (TextView)findViewById(R.id.answer);
-        answer.setText(textAnswer);
-
+        resetTextCalc();
         Log.d("UPDATE", "SLETTET TALL");
     }
 
@@ -201,24 +214,42 @@ public class PlayActivity extends AppCompatActivity {
 
         if(currentAnswer == myAnswer){
             correctAnswer();
+            nextTask();
+            randomCalc();
+            resetTextCalc();
             Log.d("FASIT", "Riktig!");
             Toast.makeText(this, "RIKTIG SVAR", Toast.LENGTH_SHORT).show();
+
         }else{
+            nextTask();
+            randomCalc();
+            resetTextCalc();
             Log.d("FASIT", "Feil!");
             Toast.makeText(this, "FEIL SVAR", Toast.LENGTH_SHORT).show();
+
         }
 
         Log.d("DITT SVAR", String.valueOf(myAnswer));
         Log.d("FASIT SVAR", String.valueOf(currentAnswer));
     }
 
+
+    /**************************************
+     *  Function RESULT of the game
+     **************************************/
+
     public void correctAnswer(){
         playerPoints = playerPoints + 1;
         String points = String.valueOf(playerPoints);
         setPoints.setText(points);
+
         Log.d("Poeng", points);
     }
 
-
+    public void nextTask(){
+        thisTask = thisTask + 1;
+        String task = String.valueOf(thisTask);
+        setTask.setText(task);
+    }
 
 }
