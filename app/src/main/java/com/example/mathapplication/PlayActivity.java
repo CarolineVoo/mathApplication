@@ -21,9 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PlayActivity extends AppCompatActivity {
-    TextView setText;           //TextView til tekstfeltet der man svarer, uten verdi
+    TextView setAnswer;            //TextView til tekstfeltet der svarerene kommer opp dersom spilleren svarer
     TextView setPoints;         //TextView til tekstfeltet der poengen vises
     TextView setTask;           //TextView til tekstfeltet som viser hvilken oppgave
+    Button btnAnswer;           //Button for dersom spilleren bekredter svaret sitt
     String textAnswer;          //String til tekstfeltet der man svarer, med tom string verdi
     boolean gamePlay = true;    //Boolean til hele spillet, der den starter med true og kjører
     String[] arrayCalculation;  //Array til å sette inn ulike regenstykker
@@ -42,12 +43,14 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        btnAnswer = (Button)findViewById(R.id.btnAnswer);
+        setAnswer = (TextView)findViewById(R.id.answer);
+
         setTask = (TextView)findViewById(R.id.textThisTask);
         thisTask = 1;
 
         //Setter opp variabler for tekstfelt som gir effekt dersom den endrer seg
-        setText = (TextView)findViewById(R.id.answer);
-        setText.addTextChangedListener(answerTextWatcher);
+        setAnswer.addTextChangedListener(answerTextWatcher);
 
         //Setter opp poeng 0 dersom aktiviteten starter
         setPoints = (TextView)findViewById(R.id.textPlayerPoints);
@@ -83,8 +86,7 @@ public class PlayActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            Button btnAnswer = (Button)findViewById(R.id.btnAnswer);
-            String checkInput = setText.getText().toString();
+            String checkInput = setAnswer.getText().toString();
 
             if(checkInput.equals("")){
                 btnAnswer.setEnabled(false);
@@ -110,18 +112,17 @@ public class PlayActivity extends AppCompatActivity {
         if(gamePlay){
             String num = String.valueOf(tall);
             textAnswer = textAnswer + num;
-            TextView answer = (TextView)findViewById(R.id.answer);
 
             String firstNum = textAnswer.substring(0,1);
             int zeroFirst = Integer.valueOf(firstNum);
 
             if(zeroFirst == 0){
                 textAnswer = num;
-                answer.setText(textAnswer);
+                setAnswer.setText(textAnswer);
                 Log.d("VALGT TALL1", textAnswer);
                 Log.d("DANGER", "null FØRST!");
             }else{
-                answer.setText(textAnswer);
+                setAnswer.setText(textAnswer);
                 Log.d("VALGT TALL2", textAnswer);
             }
         }
@@ -140,8 +141,7 @@ public class PlayActivity extends AppCompatActivity {
     public void resetTextCalc(){
         gamePlay = true;
         textAnswer = "";
-        TextView answer = (TextView)findViewById(R.id.answer);
-        answer.setText(textAnswer);
+        setAnswer.setText(textAnswer);
     }
 
 
