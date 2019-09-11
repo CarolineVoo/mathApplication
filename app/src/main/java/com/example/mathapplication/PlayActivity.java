@@ -29,7 +29,7 @@ public class PlayActivity extends AppCompatActivity {
     TextView calcQuestion;      //TextView til tekstfeltet der oppgaven som vises
     Button btnAnswer;           //Button for dersom spilleren bekredter svaret sitt
     String textAnswer;          //String til tekstfeltet der man svarer, med tom string verdi
-    boolean gamePlay = true;    //Boolean til hele spillet, der den starter med true og kjører
+    boolean gamePlay;           //Boolean til hele spillet, der den starter med true og kjører
     List<String> arrayCalculation; //ArrayList til å sette inn ulike regenstykker
     List<String> arrayAnswer;       //ArrayList til å sette inn svarene til regnestykkene.
     List<Integer> noRepeatNum;  //ArrayList som setter inn antall oppgaver og sletter oppgavene
@@ -47,6 +47,8 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        gamePlay = true;
 
         arrayCalculation = Arrays.asList(getResources().getStringArray(R.array.calculation));
         calcQuestion = (TextView)findViewById(R.id.textCalculation);
@@ -68,10 +70,9 @@ public class PlayActivity extends AppCompatActivity {
 
         randomIndex = new Random();  //Setter tilfeldige tall nå aktiviteten starter
 
-        deleteRepeatNum();  //Funksjon som sletter repeterte tall i matteoppgaven
+        numOfCalc();  //Funksjon som sletter repeterte tall i matteoppgaven
 
         randomCalc(); //Kjører funksjonen der det inneholder tilfeldige tall;
-
 
     }
 
@@ -94,7 +95,8 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-    public void deleteRepeatNum(){
+    //Funksjon som setter inn antall oppgaver i array slik at man kan slette seinere
+    public void numOfCalc(){
         sizeTask = arrayCalculation.size();
         noRepeatNum = new ArrayList<Integer>(sizeTask);
         for(int i = 0; i < sizeTask; i++){
@@ -163,6 +165,7 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    //Funksjon som pusser bort svarene til spilleren
     public void resetTextCalc(){
         gamePlay = true;
         textAnswer = "";
@@ -261,10 +264,12 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 
+
     /**************************************
      *  Function RESULT of the game
      **************************************/
 
+    //Funksjon som gir spilleren poeng dersom svaret er korrekt
     public void correctAnswer(){
         playerPoints = playerPoints + 1;
         String points = String.valueOf(playerPoints);
@@ -273,6 +278,7 @@ public class PlayActivity extends AppCompatActivity {
         Log.d("Poeng", points);
     }
 
+    //Funksjon som viser oversikt over en ny oppgave
     public void nextTask(){
         thisTask = thisTask + 1;
         String task = String.valueOf(thisTask);
