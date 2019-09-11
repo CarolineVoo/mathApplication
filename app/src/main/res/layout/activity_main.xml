@@ -25,7 +25,7 @@
         android:textSize="20sp"
         android:icon="@drawable/ic_menu_play"
         android:gravity="center"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_btn"
         android:drawableRight="@drawable/btn_icon_play"
         android:onClick="onButtonClickStart"
         />
@@ -39,8 +39,9 @@
         android:layout_marginTop="30dp"
         android:text="@string/menu_statistic"
         android:textSize="15sp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_btn"
         android:drawableRight="@drawable/btn_icon_statistic"
+        android:onClick="onButtonClickStatistic"
         />
 
     <Button
@@ -52,7 +53,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/menu_preferences"
         android:textSize="15sp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_btn"
         android:elevation="10dp"
         android:drawableRight="@drawable/btn_icon_preferences"
         />

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!--   BACKGROUNDS   -->
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_statistic"
+        />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_statistic"
+        />
+
+    <TextView
+        android:id="@+id/textSavePoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textColor="@color/colorNumberBrown"
+        android:textStyle="bold"
+        android:text="Poeng:"
+    />
+
+    <TextView
+        android:id="@+id/textSavePlayerPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSavePoints"
+        android:layout_centerInParent="true"
+        android:textSize="50sp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:text="0"
+        />
+
+
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="230dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bear"
+        />
+
+
+
+</RelativeLayout>
+

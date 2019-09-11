@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".StatisticActivity" android:parentActivityName=".MainActivity"></activity>
 
     </application>
 

@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import androidx.annotation.RequiresApi;
@@ -21,20 +23,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PlayActivity extends AppCompatActivity {
-    TextView setAnswer;            //TextView til tekstfeltet der svarerene kommer opp dersom spilleren svarer
+    TextView setAnswer;         //TextView til tekstfeltet der svarerene kommer opp dersom spilleren svarer
     TextView setPoints;         //TextView til tekstfeltet der poengen vises
     TextView setTask;           //TextView til tekstfeltet som viser hvilken oppgave
+    TextView calcQuestion;      //TextView til tekstfeltet der oppgaven som vises
     Button btnAnswer;           //Button for dersom spilleren bekredter svaret sitt
     String textAnswer;          //String til tekstfeltet der man svarer, med tom string verdi
     boolean gamePlay = true;    //Boolean til hele spillet, der den starter med true og kjører
-    String[] arrayCalculation;  //Array til å sette inn ulike regenstykker
-    String[] arrayAnswer;       //Array til å sette inn svarene til regnestykkene.
+    List<String> arrayCalculation; //ArrayList til å sette inn ulike regenstykker
+    List<String> arrayAnswer;       //ArrayList til å sette inn svarene til regnestykkene.
+    List<Integer> noRepeatNum;  //ArrayList som setter inn antall oppgaver og sletter oppgavene
     Random randomIndex;         //Variabel som gir tilfeldig tall
     Integer n;                  //Gir begrenset tall som skal være random.
     Integer currentAnswer;      //Integer som gir svaret til regnestykke fra tilfeldig svar fra arrayAnswer
     Integer myAnswer;           //Integer som spillerern svarer
     Integer playerPoints;       //Integer som viser spillerens poeng
     Integer thisTask;           //Integer som viser hvilken oppgave spilleren er på
+    Integer sizeTask;           //Integer som viser antall oppgaver
 
 
 
@@ -42,6 +47,9 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        arrayCalculation = Arrays.asList(getResources().getStringArray(R.array.calculation));
+        calcQuestion = (TextView)findViewById(R.id.textCalculation);
 
         btnAnswer = (Button)findViewById(R.id.btnAnswer);
         setAnswer = (TextView)findViewById(R.id.answer);
@@ -60,7 +68,10 @@ public class PlayActivity extends AppCompatActivity {
 
         randomIndex = new Random();  //Setter tilfeldige tall nå aktiviteten starter
 
+        deleteRepeatNum();  //Funksjon som sletter repeterte tall i matteoppgaven
+
         randomCalc(); //Kjører funksjonen der det inneholder tilfeldige tall;
+
 
     }
 
@@ -71,10 +82,24 @@ public class PlayActivity extends AppCompatActivity {
 
     //Start på aktiviteten dersom siden starter, RANDOM regnestykke kommer.
     public void randomCalc(){
-        arrayCalculation = getResources().getStringArray(R.array.calculation);
-        TextView calcQuestion = (TextView)findViewById(R.id.textCalculation);
-        n = randomIndex.nextInt(25);
-        calcQuestion.setText(arrayCalculation[n]);
+        n = randomIndex.nextInt(noRepeatNum.size());
+        calcQuestion.setText(arrayCalculation.get(n));
+        Log.d("NY OPPGAVE:", "Oppgave nr."+ n + ", " + arrayCalculation.get(n));
+
+        Log.d("Oppgave igjen:", String.valueOf(noRepeatNum.size()));
+
+        for(int i = 0; i < noRepeatNum.size(); i++){
+            Log.d("TALL", String.valueOf(noRepeatNum.get(i)));
+        }
+
+    }
+
+    public void deleteRepeatNum(){
+        sizeTask = arrayCalculation.size();
+        noRepeatNum = new ArrayList<Integer>(sizeTask);
+        for(int i = 0; i < sizeTask; i++){
+            noRepeatNum.add(i);
+        }
     }
 
 
@@ -208,13 +233,14 @@ public class PlayActivity extends AppCompatActivity {
 
     //Button som bekrefter ditt svar
     public void buttonAnswer(View v){
-        arrayAnswer = getResources().getStringArray(R.array.correctAnswer);
-        currentAnswer = Integer.valueOf(arrayAnswer[n]);
+        arrayAnswer = Arrays.asList(getResources().getStringArray(R.array.correctAnswer));
+        currentAnswer = Integer.valueOf(arrayAnswer.get(n));
         myAnswer = Integer.valueOf(textAnswer);
 
         if(currentAnswer == myAnswer){
             correctAnswer();
             nextTask();
+            noRepeatNum.remove(n);
             randomCalc();
             resetTextCalc();
             Log.d("FASIT", "Riktig!");
@@ -222,6 +248,7 @@ public class PlayActivity extends AppCompatActivity {
 
         }else{
             nextTask();
+            noRepeatNum.remove(n);
             randomCalc();
             resetTextCalc();
             Log.d("FASIT", "Feil!");

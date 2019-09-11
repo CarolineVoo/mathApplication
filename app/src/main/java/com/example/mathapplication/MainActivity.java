@@ -19,4 +19,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onButtonClickStatistic(View view){
+        Intent intent = new Intent(this, StatisticActivity.class);
+        startActivity(intent);
+    }
+
 }
