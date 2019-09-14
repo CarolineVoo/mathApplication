@@ -1,7 +1,8 @@
 package com.example.mathapplication;
 
-import android.content.Intent;
-import android.os.Build;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,15 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -26,6 +23,7 @@ public class PlayActivity extends AppCompatActivity {
     TextView setAnswer;         //TextView til tekstfeltet der svarerene kommer opp dersom spilleren svarer
     TextView setPoints;         //TextView til tekstfeltet der poengen vises
     TextView setTask;           //TextView til tekstfeltet som viser hvilken oppgave
+    TextView setNumTask;
     TextView calcQuestion;      //TextView til tekstfeltet der oppgaven som vises
     Button btnAnswer;           //Button for dersom spilleren bekredter svaret sitt
     String textAnswer;          //String til tekstfeltet der man svarer, med tom string verdi
@@ -40,7 +38,9 @@ public class PlayActivity extends AppCompatActivity {
     Integer playerPoints;       //Integer som viser spillerens poeng
     Integer thisTask;           //Integer som viser hvilken oppgave spilleren er på
     Integer sizeTask;           //Integer som viser antall oppgaver
+    Integer getNumTask;
 
+    SharedPreferences dataSave;
 
 
     @Override
@@ -56,6 +56,7 @@ public class PlayActivity extends AppCompatActivity {
         btnAnswer = (Button)findViewById(R.id.btnAnswer);
         setAnswer = (TextView)findViewById(R.id.answer);
 
+        setNumTask = (TextView)findViewById(R.id.textNumberOfTask);
         setTask = (TextView)findViewById(R.id.textThisTask);
         thisTask = 1;
 
@@ -68,6 +69,12 @@ public class PlayActivity extends AppCompatActivity {
 
         textAnswer = ""; //Starter med at tekstfeltet er tom
 
+
+        dataSave = getSharedPreferences("saveGame", Context.MODE_PRIVATE);
+        getNumTask = dataSave.getInt("numTask", 0);
+        setNumTask.setText(String.valueOf(getNumTask));
+
+
         randomIndex = new Random();  //Setter tilfeldige tall nå aktiviteten starter
 
         numOfCalc();  //Funksjon som sletter repeterte tall i matteoppgaven
@@ -75,6 +82,8 @@ public class PlayActivity extends AppCompatActivity {
         randomCalc(); //Kjører funksjonen der det inneholder tilfeldige tall;
 
     }
+
+
 
 
     /**************************************
@@ -179,7 +188,7 @@ public class PlayActivity extends AppCompatActivity {
     **************************************/
 
     //Forskjellige buttons til å svare på regnestykker
-    public void buttonClick(View v){
+    public void buttonClickNum(View v){
         switch (v.getId()){
             case R.id.btn1 :
                 setNumber(1);
@@ -264,6 +273,28 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 
+    public void onBackPressed(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
+        builder.setMessage("Alt lagret spill vil bli borte. Er du sikker på at du vil avslutte?");
+        builder.setCancelable(true);
+        builder.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     /**************************************
      *  Function RESULT of the game
@@ -285,4 +316,48 @@ public class PlayActivity extends AppCompatActivity {
         setTask.setText(task);
     }
 
+
+    /**************************************
+     * save stations
+     **************************************/
+
+    /*
+    public void onPause(){
+        super.onPause();
+        SharedPreferences.Editor editor = playerSave.edit();
+        editor.putString("Calcis", calcQuestion.getText().toString());
+        editor.putString("Answer", setAnswer.getText().toString());
+        editor.commit();
+        Log.d("Status", "PAUSE");
+    }
+
+    public void onResume(){
+        super.onResume();
+        playerSave = getSharedPreferences("saveGame", Context.MODE_PRIVATE);
+        String saveCalc = playerSave.getString("Calcis", "");
+        String saveAnswer = playerSave.getString("Answer", "");
+        calcQuestion.setText(saveCalc);
+        setAnswer.setText(saveAnswer);
+        Log.d("Status", "FORTSETTER");
+    }
+
+         */
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("playerAnswer", textAnswer);
+        outState.putString("currentAnswer", setAnswer.getText().toString());
+        outState.putString("currentCalc", calcQuestion.getText().toString());
+
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        textAnswer = savedInstanceState.getString("currentAnswer");
+        setAnswer.setText(savedInstanceState.getString("playerAnswer"));
+        calcQuestion.setText(savedInstanceState.getString("currentCalc"));
+
+    }
 }

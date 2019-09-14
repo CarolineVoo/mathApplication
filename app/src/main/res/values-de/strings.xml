@@ -8,4 +8,16 @@
     <!-- START GAME ACTIVITY -->
     <string name="start_taskOf">von</string>
     <string name="start_points">Punkt:</string>
+
+    <!-- STATISTIC ACTIVITY -->
+    <string name="statistic_correct">Richtig:</string>
+    <string name="statistic_wrong">Falsch:</string>
+    <string name="statistic_delete">Löschen</string>
+
+    <!-- PREFERENCES ACTIVITY -->
+    <string name="numberOfTask">Anzahl der aufgaben:</string>
+    <string name="radio_5tasks">5</string>
+    <string name="radio_10tasks">10</string>
+    <string name="radio_25tasks">25</string>
+    <string name="changeLanguage">Sprache wechseln:</string>
 </resources>

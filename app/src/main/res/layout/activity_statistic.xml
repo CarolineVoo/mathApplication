@@ -23,28 +23,65 @@
         />
 
     <TextView
-        android:id="@+id/textSavePoints"
+        android:id="@+id/textSaveCorrect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="110dp"
         android:layout_centerHorizontal="true"
         android:textSize="30sp"
         android:textColor="@color/colorNumberBrown"
         android:textStyle="bold"
-        android:text="Poeng:"
+        android:text="@string/start_points"
     />
 
     <TextView
-        android:id="@+id/textSavePlayerPoints"
+    android:id="@+id/textSavePlayerCorrect"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/textSaveCorrect"
+    android:layout_centerInParent="true"
+    android:textSize="50sp"
+    android:textColor="@color/colorAccent"
+    android:textStyle="bold"
+    android:text="0"
+    />
+
+    <TextView
+        android:id="@+id/textPlayerWrong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textSavePoints"
+        android:layout_below="@+id/textSavePlayerCorrect"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:textSize="30sp"
+        android:textColor="@color/colorNumberBrown"
+        android:textStyle="bold"
+        android:text="@string/statistic_wrong"
+        />
+
+    <TextView
+        android:id="@+id/textSavePlayerWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textPlayerWrong"
         android:layout_centerInParent="true"
         android:textSize="50sp"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:text="0"
         />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textSavePlayerWrong"
+        android:background="@color/colorDarkOrange"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:text="@string/statistic_delete"
+        android:onClick="buttonDeletePoints"
+        tools:ignore="OnClick" />
 
 
     <ImageView

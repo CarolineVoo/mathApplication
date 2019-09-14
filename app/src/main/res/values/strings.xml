@@ -8,4 +8,16 @@
     <!-- START GAME ACTIVITY -->
     <string name="start_taskOf">av</string>
     <string name="start_points">Poeng:</string>
+
+    <!-- STATISTIC ACTIVITY -->
+    <string name="statistic_correct">Riktig:</string>
+    <string name="statistic_wrong">Feil:</string>
+    <string name="statistic_delete">Slett</string>
+
+    <!-- PREFERENCES ACTIVITY -->
+    <string name="numberOfTask">Antall oppgaver:</string>
+    <string name="radio_5tasks">5</string>
+    <string name="radio_10tasks">10</string>
+    <string name="radio_25tasks">25</string>
+    <string name="changeLanguage">Endre språk:</string>
 </resources>
